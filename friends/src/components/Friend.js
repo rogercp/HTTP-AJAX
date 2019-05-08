@@ -5,8 +5,8 @@ const Friend =(props)=>{
 
     return (
             <div>
-                <h1>{props.friend.name}</h1>
-                <h3>{props.friend.age}</h3>
+                <h2>{props.friend.name}</h2>
+                <h4>{props.friend.age}</h4>
             </div>
         
     )

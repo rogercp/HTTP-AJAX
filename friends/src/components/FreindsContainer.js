@@ -3,24 +3,26 @@ import axios from 'axios'
 
 import FriendsList from './FreindsList'
 
+
 class FriendsContainer extends React.Component {
     constructor(){
-        super()
+        super();
         this.state = {  
             friends:[],
+            error:''
         }
     }
     componentDidMount(){
 
         axios
-            .get('http://localhost:5000/friends')
-            .then(res=>{
-                console.log(res);
-                this.setState({friends:res.friends})
-            })
-            .catch(error=>{
+        .get("http://localhost:5000/friends")
+        .then(res=>{
+              console.log(res)
+                this.setState({friends:res.data});
+        })
+        .catch(error=>{
                 console.log(error)
-                this.setState({error:error.response.message})
+               this.setState({error:error})
             })
 
     }
