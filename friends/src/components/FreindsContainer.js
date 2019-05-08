@@ -2,14 +2,18 @@ import React from 'react'
 import axios from 'axios'
 
 import FriendsList from './FreindsList'
-
+import AddNewFriend from './AddNewFriend'
 
 class FriendsContainer extends React.Component {
     constructor(){
         super();
         this.state = {  
             friends:[],
-            error:''
+            error:'',
+            newFriendName:'',
+            newFriendAge:'',
+            newFriendEmail:'',
+            
         }
     }
     componentDidMount(){
@@ -26,11 +30,22 @@ class FriendsContainer extends React.Component {
             })
 
     }
+    onChange=e=>{
+        e.preventDefault();
+        this.setState({
+            [e.target.name]:e.target.value
+        })
 
+
+    }
     render() { 
        console.log(this.state.friends)
         return ( 
+        <div>
             <FriendsList friends={this.state.friends}/>
+            <AddNewFriend onChange={this.onChange}/>
+        </div>
+           
          );
     }
 }
