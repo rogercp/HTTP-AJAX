@@ -3,12 +3,13 @@ import React from 'react'
 const AddNewFriend =(props)=> {
     
     return (
-        <form>
+        <form onSubmit={props.addFriend}>
             <input
             type="text"
             placeholder="...name"
             name="newFriendName"
             onChange={props.onChange}
+            value={props.data.newFriendName}
             />
 
             <input
@@ -16,6 +17,7 @@ const AddNewFriend =(props)=> {
             placeholder="...age"
             name="newFriendAge"
             onChange={props.onChange}
+            value={props.data.newFriendAge}
             />
 
             <input
@@ -23,8 +25,9 @@ const AddNewFriend =(props)=> {
             placeholder="...email"
             name="newFriendEmail"
             onChange={props.onChange}
+            value={props.data.newFriendEmail}
             />
-        <button >Add</button>
+        <button type="submit">Add</button>
         </form>
 
       );

@@ -4,11 +4,14 @@ import React from 'react'
 const Friend =(props)=>{
 
     return (
-            <div>
-                <h2>{props.friend.name}</h2>
-                <h4>{props.friend.age}</h4>
-            </div>
         
+            <tr>
+                <td>{props.friend.name}</td>
+                <td>{props.friend.age}</td>
+                <td>{props.friend.email}</td>
+                <td><button onClick={e=>props.delete(e,props.friend.id)}>delete</button></td>
+            </tr>
+           
     )
 
 
