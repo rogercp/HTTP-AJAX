@@ -3,13 +3,14 @@ import axios from 'axios'
 
 import FriendsList from './FreindsList'
 import AddNewFriend from './AddNewFriend'
+import UpdateFriend from './UpdateFriend'
 
 class FriendsContainer extends React.Component {
     constructor(){
         super();
         this.state = {  
             friends:[],
-            error:'',
+            // error:'',
             newFriendName:'',
             newFriendAge:'',
             newFriendEmail:'',
@@ -30,6 +31,49 @@ class FriendsContainer extends React.Component {
             })
 
     }
+
+    addNewFriend=e=>{
+        e.preventDefault();
+        const newFriend={
+            id:this.state.friends.length+1,
+            name:this.state.newFriendName,
+            age:this.state.newFriendAge,
+            email:this.state.newFriendEmail,
+        }
+        axios.post("http://localhost:5000/friends", newFriend)
+        .then(res=>{
+            this.setState({
+                friends:res.data,
+            })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+    deleteFriend=(e,id)=>{
+        e.preventDefault();
+
+        axios.delete(`http://localhost:5000/friends/${id}`)
+        .then(res=> this.setState({
+            friends:res.data,
+            }))
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+    updateFriend=(friend,id)=>{
+        axios.put(`http://localhost:5000/friends/${id}`, friend)
+        .then(res=>this.setState({friends:res.data,}))
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+
+
+
     onChange=e=>{
         e.preventDefault();
         this.setState({
@@ -42,8 +86,9 @@ class FriendsContainer extends React.Component {
        console.log(this.state.friends)
         return ( 
         <div>
-            <FriendsList friends={this.state.friends}/>
-            <AddNewFriend onChange={this.onChange}/>
+            <FriendsList friends={this.state.friends}  delete={this.deleteFriend}/>
+            <AddNewFriend onChange={this.onChange} addFriend={this.addNewFriend} data={this.state}/>
+            <UpdateFriend updateFriend={this.updateFriend}/>
         </div>
            
          );
